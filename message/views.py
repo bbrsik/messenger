@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from message.models import Message
-
+import json
 
 # Create your views here.
 
@@ -22,7 +21,11 @@ def list_messages(request):
 
 
 @csrf_exempt
+
 def create_message(request):
     if request.method == "POST":
-        print(request.POST)
+        body = json.loads(request.body)
+        text = body.get('message')
+        msg = Message(text=text)
+        msg.save()
     return HttpResponse()
