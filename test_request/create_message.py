@@ -14,10 +14,12 @@ with requests.session() as session:
         headers={'Content-Type': 'application/json'}
     )
     body = {
-        "message": "test text"
+        "message": "test_chat_1", "chat": 123
     }
-    session.post(
+    response = session.post(
         "http://127.0.0.1:8000/message/create/",
         json.dumps(body),
         headers={'Content-Type': 'application/json'}
     )
+
+    print(response, response.content)

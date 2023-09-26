@@ -2,7 +2,9 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from message.models import Message
+from message.models import Chat
 import json
+from django.views.decorators.http import require_http_methods
 
 
 @csrf_exempt
@@ -29,9 +31,38 @@ def list_messages(request):
 
 @csrf_exempt
 def create_message(request):
+    if request.method != "POST":
+        return HttpResponse(status=400)
+
+    body = json.loads(request.body)
+    text = body.get('message')
+    c = body.get('chat')
+    try:
+        Chat.objects.get(id=c)
+    except Chat.DoesNotExist:
+        return HttpResponse('Chat does not exist.', status=400)
+
+    msg = Message(text=text, user=request.user, chat_id=c)
+    msg.save()
+    return HttpResponse()
+
+
+@csrf_exempt
+def create_chat(request):
     if request.method == "POST":
         body = json.loads(request.body)
-        text = body.get('message')
-        msg = Message(text=text, user=request.user)
-        msg.save()
+        text = body.get('name')
+        n = Chat(name=text)
+        n.save()
     return HttpResponse()
+
+
+# def list_chats(request):
+#     chats = []
+#     for c in Chat.objects.all():
+#         chats.append({
+#             'created_at': c.created_at.strftime("%D %H:%M:%S"),
+#             'name': c.user.username,
+#             'text': c.text
+#         })
+#     return HttpResponse(chats)
