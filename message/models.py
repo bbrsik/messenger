@@ -10,7 +10,6 @@ class Chat(models.Model):
         return (
             f"NAME: {self.name}; "
             f"ID: {self.id}; "
-            # f"({self.created_at:%Y-%m-%d %H:%M}): "
         )
 
 

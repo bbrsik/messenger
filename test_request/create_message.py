@@ -14,7 +14,7 @@ with requests.session() as session:
         headers={'Content-Type': 'application/json'}
     )
     body = {
-        "message": "test_chat_1", "chat": 123
+        "message": "test_chat_1", "chat_id": 123
     }
     response = session.post(
         "http://127.0.0.1:8000/message/create/",

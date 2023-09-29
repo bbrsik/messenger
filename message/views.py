@@ -24,13 +24,13 @@ def create_message(request):
 
     body = json.loads(request.body)
     text = body.get('message')
-    c = body.get('chat')
+    chat = body.get('chat_id')
     try:
-        Chat.objects.get(id=c)
+        Chat.objects.get(id=chat)
     except Chat.DoesNotExist:
         return JsonResponse({'Chat does not exist.'}, status=400)
 
-    msg = Message(text=text, user=request.user, chat_id=c)
+    msg = Message(text=text, user=request.user, chat_id=chat)
     msg.save()
     return JsonResponse({})
 
@@ -40,8 +40,8 @@ def create_chat(request):
     if request.method == "POST":
         body = json.loads(request.body)
         text = body.get('name')
-        n = Chat(name=text)
-        n.save()
+        chat = Chat(name=text)
+        chat.save()
     return JsonResponse({})
 
 
@@ -71,11 +71,11 @@ def list_chats(request):
         return JsonResponse({}, status=400)
 
     chats = []
-    for c in Chat.objects.all():
+    for chat in Chat.objects.all():
         chats.append({
-            'created_at': c.created_at.strftime("%D %H:%M:%S"),
-            'id': c.id,
-            'name': c.name
+            'created_at': chat.created_at.strftime("%D %H:%M:%S"),
+            'id': chat.id,
+            'name': chat.name
         })
 
     return JsonResponse({'chats': chats})
