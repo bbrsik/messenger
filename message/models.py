@@ -8,9 +8,9 @@ class Chat(models.Model):
 
     def __str__(self):
         return (
-            f"{self.name} "
-            f"{self.id} "
-            f"({self.created_at:%Y-%m-%d %H:%M}): "
+            f"NAME: {self.name}; "
+            f"ID: {self.id}; "
+            # f"({self.created_at:%Y-%m-%d %H:%M}): "
         )
 
 
@@ -22,8 +22,8 @@ class Message(models.Model):
 
     def __str__(self):
         return (
-            f"{self.chat} "
-            f"{self.user} "
-            f"({self.created_at:%Y-%m-%d %H:%M}): "
-            f"{self.text[:30]}..."
+            f"CHAT: {self.chat}; "
+            f"USER: {self.user}; "
+            f"DATE: ({self.created_at:%Y-%m-%d %H:%M}): "
+            f"MESSAGE: {self.text[:30]}..."
         )

@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from message.models import Message
 from message.models import Chat
@@ -12,27 +12,15 @@ def login_view(request):
     body = json.loads(request.body)
     user = authenticate(request, username=body.get('username'), password=body.get('password'))
     if not user:
-        return HttpResponse(status=403)
+        return JsonResponse({}, status=403)
     login(request, user=user)
-    return HttpResponse()
-
-
-def list_messages(request):
-    messages = []
-    for msg in Message.objects.all():
-        messages.append({
-            'created_at': msg.created_at.strftime("%D %H:%M:%S"),
-            'username': msg.user.username,
-            'user_id': msg.user_id,
-            'text': msg.text
-        })
-    return HttpResponse(messages)
+    return JsonResponse({})
 
 
 @csrf_exempt
 def create_message(request):
     if request.method != "POST":
-        return HttpResponse(status=400)
+        return JsonResponse({}, status=400)
 
     body = json.loads(request.body)
     text = body.get('message')
@@ -40,11 +28,11 @@ def create_message(request):
     try:
         Chat.objects.get(id=c)
     except Chat.DoesNotExist:
-        return HttpResponse('Chat does not exist.', status=400)
+        return JsonResponse({'Chat does not exist.'}, status=400)
 
     msg = Message(text=text, user=request.user, chat_id=c)
     msg.save()
-    return HttpResponse()
+    return JsonResponse({})
 
 
 @csrf_exempt
@@ -54,15 +42,40 @@ def create_chat(request):
         text = body.get('name')
         n = Chat(name=text)
         n.save()
-    return HttpResponse()
+    return JsonResponse({})
 
 
-# def list_chats(request):
-#     chats = []
-#     for c in Chat.objects.all():
-#         chats.append({
-#             'created_at': c.created_at.strftime("%D %H:%M:%S"),
-#             'name': c.user.username,
-#             'text': c.text
-#         })
-#     return HttpResponse(chats)
+def show_chat(request, chat_id):
+    if request.method != "GET":
+        return JsonResponse({}, status=400)
+
+    try:
+        Chat.objects.get(id=chat_id)
+    except Chat.DoesNotExist:
+        return JsonResponse({'Response': 'Chat does not exist'}, status=404)
+
+    messages = []
+    for msg in Message.objects.filter(chat_id=chat_id):
+        messages.append({
+            'created_at': msg.created_at.strftime("%D %H:%M:%S"),
+            'username': msg.user.username,
+            'text': msg.text,
+            'id': msg.id,
+        })
+
+    return JsonResponse({'messages': messages})
+
+
+def list_chats(request):
+    if request.method != "GET":
+        return JsonResponse({}, status=400)
+
+    chats = []
+    for c in Chat.objects.all():
+        chats.append({
+            'created_at': c.created_at.strftime("%D %H:%M:%S"),
+            'id': c.id,
+            'name': c.name
+        })
+
+    return JsonResponse({'chats': chats})
