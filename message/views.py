@@ -1,10 +1,18 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from message.models import Message
 from message.models import Chat
 import json
-from django.views.decorators.http import require_http_methods
+
+
+def render_chat(request, chat_id):
+    context = {
+        'chat_id': chat_id,
+        'arr': [x for x in range(10)]
+    }
+    return render(request, 'render_chat.html', context=context)
 
 
 @csrf_exempt
