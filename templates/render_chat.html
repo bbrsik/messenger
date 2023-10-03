@@ -1,6 +1,13 @@
+<html>
+<head>
+    Selected chat: {{name}}<br>
+    Chat ID: {{chat_id}}<br>
+</head>
 <body>
-    hello chat #{{ chat_id }}
-    {% for i in arr %}
-        <div>{{ i }}</div>
+<p>
+{% for message in messages %}
+    {{ message.username }}: {{message.text}} <br>
     {% endfor %}
+</p>
 </body>
+</html>

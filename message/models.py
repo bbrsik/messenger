@@ -9,7 +9,7 @@ class Chat(models.Model):
     def __str__(self):
         return (
             f"NAME: {self.name}; "
-            f"ID: {self.id}; "
+            f"CHAT ID: {self.id}; "
         )
 
 
@@ -21,8 +21,8 @@ class Message(models.Model):
 
     def __str__(self):
         return (
-            f"CHAT: {self.chat}; "
-            f"USER: {self.user}; "
+            f"CHAT {self.chat}; "
             f"DATE: ({self.created_at:%Y-%m-%d %H:%M}): "
-            f"MESSAGE: {self.text[:30]}..."
+            f"USER: {self.user}; "
+            f"MESSAGE: {self.text}"
         )

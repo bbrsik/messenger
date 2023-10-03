@@ -8,9 +8,16 @@ import json
 
 
 def render_chat(request, chat_id):
+    try:
+        chat = Chat.objects.get(id=chat_id)
+    except Chat.DoesNotExist:
+        return JsonResponse({'Response': 'Chat does not exist'}, status=404)
+
+    messages = show_chat(request, chat_id)
     context = {
         'chat_id': chat_id,
-        'arr': [x for x in range(10)]
+        'name': chat.name,
+        'messages': messages,
     }
     return render(request, 'render_chat.html', context=context)
 
@@ -71,7 +78,9 @@ def show_chat(request, chat_id):
             'id': msg.id,
         })
 
-    return JsonResponse({'messages': messages})
+    return messages
+    # return JsonResponse({'messages': messages})
+
 
 
 def list_chats(request):
@@ -86,4 +95,4 @@ def list_chats(request):
             'name': chat.name
         })
 
-    return JsonResponse({'chats': chats})
+    return render(request, 'render_list.html', context=chat_names)
