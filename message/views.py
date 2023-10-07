@@ -13,13 +13,35 @@ def render_chat(request, chat_id):
     except Chat.DoesNotExist:
         return JsonResponse({'Response': 'Chat does not exist'}, status=404)
 
-    messages = show_chat(request, chat_id)
+    messages = []
+    for msg in Message.objects.filter(chat_id=chat_id):
+        messages.append({
+            'created_at': msg.created_at.strftime("%D %H:%M:%S"),
+            'username': msg.user.username,
+            'text': msg.text,
+            'id': msg.id,
+        })
+
     context = {
         'chat_id': chat_id,
         'name': chat.name,
         'messages': messages,
     }
     return render(request, 'render_chat.html', context=context)
+
+
+def render_list(request):
+    chats = []
+    for chat in Chat.objects.all():
+        chats.append({
+            'created_at': chat.created_at.strftime("%D %H:%M:%S"),
+            'id': chat.id,
+            'name': chat.name,
+        })
+    context = {
+        'chats': chats,
+    }
+    return render(request, 'render_list.html', context=context)
 
 
 @csrf_exempt
@@ -78,9 +100,7 @@ def show_chat(request, chat_id):
             'id': msg.id,
         })
 
-    return messages
-    # return JsonResponse({'messages': messages})
-
+    return JsonResponse({'messages': messages})
 
 
 def list_chats(request):
@@ -95,4 +115,4 @@ def list_chats(request):
             'name': chat.name
         })
 
-    return render(request, 'render_list.html', context=chat_names)
+    return JsonResponse({'chats': chats})

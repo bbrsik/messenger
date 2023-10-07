@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path("chat/<chat_id>/", views.render_chat, name='render_chat'),
-    path("chat/list/", views.list_chats, name='list_chats'),
+    path("chats/", views.render_list, name='render_list'),
     # api todo вынести в /api/...
     path("login/", views.login_view, name='login'),
     path("create/", views.create_message, name='create_message'),
