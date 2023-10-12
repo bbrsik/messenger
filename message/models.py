@@ -18,6 +18,15 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    reply_on = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def get_replies_chain(self):
+        # todo получить массив объектов Message() для всей цепочки ответов
+        # message = Message()
+        # message.reply_on = Message()
+        # message.reply_on.reply_on = Message()
+        # -> [Message(), Message(), Message()]
+        pass
 
     def __str__(self):
         return (
