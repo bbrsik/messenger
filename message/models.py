@@ -22,11 +22,23 @@ class Message(models.Model):
 
     def get_replies_chain(self):
         # todo получить массив объектов Message() для всей цепочки ответов
-        # message = Message()
-        # message.reply_on = Message()
-        # message.reply_on.reply_on = Message()
-        # -> [Message(), Message(), Message()]
-        pass
+        class Node:
+            def __init__(self, data, prev=None):
+                self.data = data
+                self.prev = prev
+
+        head = Node(Message(self))
+        current = head
+        while current is not None:
+            current.prev = Message.objects.get(reply_on=current.prev)
+            current = current.prev
+
+        current = head
+        reply_array = []
+        while current is not(None):
+            reply_array.append(current.data)
+            current = current.prev
+        return reply_array
 
     def __str__(self):
         return (
@@ -35,3 +47,5 @@ class Message(models.Model):
             f"DATE: ({self.created_at:%Y-%m-%d %H:%M}): "
             f"MESSAGE: {self.text[:30]}..."
         )
+
+
