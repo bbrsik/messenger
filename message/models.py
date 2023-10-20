@@ -8,8 +8,8 @@ class Chat(models.Model):
 
     def __str__(self):
         return (
-            f"NAME: {self.name}; "
-            f"ID: {self.id}; "
+            f"NAME: {self.name}, "
+            f"ID: {self.id}"
         )
 
 
@@ -21,23 +21,11 @@ class Message(models.Model):
     reply_on = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
     def get_replies_chain(self):
-        # todo получить массив объектов Message() для всей цепочки ответов
-        class Node:
-            def __init__(self, data, prev=None):
-                self.data = data
-                self.prev = prev
-
-        head = Node(Message(self))
-        current = head
-        while current is not None:
-            current.prev = Message.objects.get(reply_on=current.prev)
-            current = current.prev
-
-        current = head
+        current = self.reply_on
         reply_array = []
-        while current is not(None):
-            reply_array.append(current.data)
-            current = current.prev
+        while current is not None:
+            reply_array.append(current)
+            current = current.reply_on
         return reply_array
 
     def __str__(self):
@@ -45,7 +33,7 @@ class Message(models.Model):
             f"CHAT: {self.chat}; "
             f"USER: {self.user}; "
             f"DATE: ({self.created_at:%Y-%m-%d %H:%M}): "
-            f"MESSAGE: {self.text[:30]}..."
+            f"MESSAGE: {self.text}"
         )
 
 

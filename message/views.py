@@ -58,7 +58,7 @@ def show_chat(request, chat_id):
     for msg in Message.objects.filter(chat_id=chat_id):
         messages.append({
             'created_at': msg.created_at.strftime("%D %H:%M:%S"),
-            'username': msg.user.username,
+            'username': msg.user.usecrname,
             'text': msg.text,
             'id': msg.id,
         })
