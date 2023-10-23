@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from message.models import Message
 from message.models import Chat
+from message.serializers import *
 import json
 
 
@@ -31,13 +32,7 @@ def render_chat(request, chat_id):
 
 
 def render_list(request):
-    chats = []
-    for chat in Chat.objects.all():
-        chats.append({
-            'created_at': chat.created_at.strftime("%D %H:%M:%S"),
-            'id': chat.id,
-            'name': chat.name,
-        })
+    chats = serialize_chats()
     context = {
         'chats': chats,
     }
@@ -106,13 +101,5 @@ def show_chat(request, chat_id):
 def list_chats(request):
     if request.method != "GET":
         return JsonResponse({}, status=400)
-
-    chats = []
-    for chat in Chat.objects.all():
-        chats.append({
-            'created_at': chat.created_at.strftime("%D %H:%M:%S"),
-            'id': chat.id,
-            'name': chat.name
-        })
-
+    chats = serialize_chats()
     return JsonResponse({'chats': chats})
