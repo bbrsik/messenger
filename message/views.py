@@ -1,11 +1,13 @@
+import urllib
+import json
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from message.models import Message
 from message.models import Chat
 from message.serializers import *
-import json
 
 
 def render_chat(request, chat_id):
@@ -50,13 +52,12 @@ def login_view(request):
 
 
 @csrf_exempt
-def create_message(request):
+def create_message(request, chat_id):
     if request.method != "POST":
         return JsonResponse({}, status=400)
-
-    body = json.loads(request.body)
-    text = body.get('message')
-    chat = body.get('chat_id')
+    body = urllib.parse.parse_qs(request.body.decode())
+    [text] = body.get('message')
+    chat = chat_id
     try:
         Chat.objects.get(id=chat)
     except Chat.DoesNotExist:
@@ -64,7 +65,7 @@ def create_message(request):
 
     msg = Message(text=text, user=request.user, chat_id=chat)
     msg.save()
-    return JsonResponse({})
+    return redirect(reverse("render_chat", kwargs={'chat_id': chat_id}))
 
 
 @csrf_exempt

@@ -9,16 +9,19 @@ html * {
 </style>
 <p>
     <div>Selected chat: {{name}}</div>
-    Chat ID: {{chat_id}}
-</p>
+Chat ID: {{chat_id}}
 <body>
 <p>
 {% for message in messages %}
     <div>{{ message.username }}: {{message.text}}</div>
     {% endfor %}
-</p>
+<div>
+    <form action="/message/api/create/{{chat_id}}/" method="POST">
+    <input name="message" autocomplete="off">
+        <button type="submit">send</button>
+    </form>
+</div>
 <p>
     <div><a href="/message/chats/">Back to All Chats</a></div>
-</p>
 </body>
 </html>
