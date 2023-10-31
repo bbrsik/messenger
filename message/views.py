@@ -15,26 +15,21 @@ def render_chat(request, chat_id):
         chat = Chat.objects.get(id=chat_id)
     except Chat.DoesNotExist:
         return JsonResponse({'Response': 'Chat does not exist'}, status=404)
-
-    messages = []
-    for msg in Message.objects.filter(chat_id=chat_id):
-        messages.append({
-            'created_at': msg.created_at.strftime("%D %H:%M:%S"),
-            'username': msg.user.username,
-            'text': msg.text,
-            'id': msg.id,
-        })
-
+    chat_is_empty = True
+    messages = serialize_messages(Message.objects.filter(chat_id=chat_id))
+    if len(messages) != 0:
+        chat_is_empty = False
     context = {
         'chat_id': chat_id,
         'name': chat.name,
         'messages': messages,
+        'chat_is_empty': chat_is_empty,
     }
     return render(request, 'render_chat.html', context=context)
 
 
 def render_list(request):
-    chats = serialize_chats()
+    chats = serialize_chats(Chat.objects.all())
     context = {
         'chats': chats,
     }
@@ -71,11 +66,11 @@ def create_message(request, chat_id):
 @csrf_exempt
 def create_chat(request):
     if request.method == "POST":
-        body = json.loads(request.body)
-        text = body.get('name')
+        body = urllib.parse.parse_qs(request.body.decode())
+        [text] = body.get('name')
         chat = Chat(name=text)
         chat.save()
-    return JsonResponse({})
+    return redirect(reverse("render_list"))
 
 
 def show_chat(request, chat_id):
@@ -86,21 +81,12 @@ def show_chat(request, chat_id):
         Chat.objects.get(id=chat_id)
     except Chat.DoesNotExist:
         return JsonResponse({'Response': 'Chat does not exist'}, status=404)
-
-    messages = []
-    for msg in Message.objects.filter(chat_id=chat_id):
-        messages.append({
-            'created_at': msg.created_at.strftime("%D %H:%M:%S"),
-            'username': msg.user.username,
-            'text': msg.text,
-            'id': msg.id,
-        })
-
+    messages = serialize_messages(Message.objects.filter(chat_id=chat_id))
     return JsonResponse({'messages': messages})
 
 
 def list_chats(request):
     if request.method != "GET":
         return JsonResponse({}, status=400)
-    chats = serialize_chats()
+    chats = serialize_chats(Chat.objects.all())
     return JsonResponse({'chats': chats})

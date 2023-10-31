@@ -20,13 +20,13 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     reply_on = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
-    def get_replies_chain(self):
+    def get_replies_history(self):
         current = self.reply_on
-        reply_array = []
+        replies = []
         while current is not None:
-            reply_array.append(current)
+            replies.append(current)
             current = current.reply_on
-        return reply_array
+        return replies
 
     def __str__(self):
         return (

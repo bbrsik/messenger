@@ -1,27 +1,60 @@
 <html>
+<head>
 <style>
 html * {
-  font-size: 20px;
-  line-height: 1.625;
-  color: #2020131;
-  font-family: Nunito, sans-serif;
-}
+        font-size: 20px;
+        line-height: 1.5;
+        color: #2020131;
+        font-family: sans-serif;
+        }
+
+div.reply {
+        font-size: 10px;
+        padding: 5px;
+        margin: 7px;
+        border: 1px solid;
+        border-color: gray;
+        background-color: #B1FFCA;
+        }
+
+div.message {
+        padding: 5px;
+        margin: 7px;
+        border: 1px solid;
+        border-color: gray;
+        background-color: white;
+        }
 </style>
-<p>
-    <div>Selected chat: {{name}}</div>
-Chat ID: {{chat_id}}
+</head>
 <body>
-<p>
-{% for message in messages %}
-    <div>{{ message.username }}: {{message.text}}</div>
+<div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
+    <div>Selected chat: {{name}}</div>
+    <div>Chat ID: {{chat_id}}</div>
+</div>
+{% if chat_is_empty %}
+    <div style="color: red; margin: 10px;">
+        No messages found
+    </div>
+{% else %}
+    {% for message in messages %}
+        <div class="message">
+            {% for reply in message.replies_history %}
+                <div class="reply">
+                    TO: {{ reply.username }}: {{ reply.text }}
+                </div>
+            {% endfor %}
+        {{ message.username }}: {{ message.text }}
+        </div>
     {% endfor %}
-<div>
-    <form action="/message/api/create/{{chat_id}}/" method="POST">
-    <input name="message" autocomplete="off">
+{% endif %}
+<div style="margin-top: 30px; margin-left: 10px;">
+    Your message:
+    <form action="/message/api/message/create/{{chat_id}}/" method="POST">
+        <input name="message" autocomplete="off">
         <button type="submit">send</button>
     </form>
+    <a href="/message/chats/">Back to All Chats</a>
 </div>
-<p>
-    <div><a href="/message/chats/">Back to All Chats</a></div>
+
 </body>
 </html>
