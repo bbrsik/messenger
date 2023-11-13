@@ -57,22 +57,3 @@ def create_chat(request):
         chat = Chat(name=name)
         chat.save()
     return redirect(reverse("render_list"))
-
-
-def show_chat(request, chat_id):
-    if request.method != "GET":
-        return JsonResponse({}, status=400)
-
-    try:
-        Chat.objects.get(id=chat_id)
-    except Chat.DoesNotExist:
-        return JsonResponse({'Response': 'Chat does not exist'}, status=404)
-    messages = serialize_messages(Message.objects.filter(chat_id=chat_id))
-    return JsonResponse({'messages': messages})
-
-
-def list_chats(request):
-    if request.method != "GET":
-        return JsonResponse({}, status=400)
-    chats = serialize_chats(Chat.objects.all())
-    return JsonResponse({'chats': chats})
