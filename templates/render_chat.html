@@ -31,11 +31,7 @@ div.message {
     <div>Selected chat: {{name}}</div>
     <div>Chat ID: {{chat_id}}</div>
 </div>
-{% if chat_is_empty %}
-    <div style="color: red; margin: 10px;">
-        No messages found
-    </div>
-{% else %}
+{% if chat_has_messages %}
     {% for message in messages %}
         <div class="message">
             {% for reply in message.replies_history %}
@@ -46,6 +42,10 @@ div.message {
         {{ message.username }}: {{ message.text }}
         </div>
     {% endfor %}
+{% else %}
+    <div style="color: red; margin: 10px;">
+        No messages found
+    </div>
 {% endif %}
 <div style="margin-top: 30px; margin-left: 10px;">
     Your message:
