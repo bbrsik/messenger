@@ -22,6 +22,7 @@ def login_view(request):
 def create_message(request, chat_id):
     if request.method != "POST":
         return JsonResponse({}, status=400)
+    ## todo анонимный пользователь - исключение
     body = urllib.parse.parse_qs(request.body.decode())
     [message] = body.get('message')
     chat = chat_id
@@ -33,6 +34,19 @@ def create_message(request, chat_id):
     msg = Message(text=message, user=request.user, chat_id=chat)
     msg.save()
     return redirect(reverse("render_chat", kwargs={'chat_id': chat_id}))
+
+
+@csrf_exempt
+def delete_message(request, message_id):
+    if request.method != "POST":
+        return JsonResponse({}, status=400)
+    try:
+        message = Message.objects.get(id=message_id)
+        chat_id = message.chat.id
+        message.delete()
+        return redirect(reverse("render_chat", kwargs={'chat_id': chat_id}))
+    except Message.DoesNotExist:
+        return JsonResponse({'Message does not exist'}, status=400)
 
 
 @csrf_exempt

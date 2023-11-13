@@ -15,21 +15,45 @@ div.reply {
         border: 1px solid;
         border-color: gray;
         background-color: #B1FFCA;
+        word-wrap: break-word;
         }
 
 div.message {
         padding: 5px;
+        padding-right: 25px;
         margin: 7px;
         border: 1px solid;
         border-color: gray;
         background-color: white;
+        position: relative;
+        word-wrap: break-word;
+        }
+
+.form-delete {
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        }
+
+.button-delete {
+        font-size: 15px;
+        color: red;
+        border: none;
+        background-color: white;
+        padding: 0px 0px;
         }
 </style>
 </head>
 <body>
 <div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
-    <div>Selected chat: {{name}}</div>
-    <div>Chat ID: {{chat_id}}</div>
+    <div>Selected chat: {{ name }}</div>
+    <div>Chat ID: {{ chat_id }}</div>
+    {% if user.is_authenticated %}
+        <div style="color: green;">You are logged in as: {{ user.username }}</div>
+    {% else %}
+        <div style="color: red;">You are not logged in</div>
+    {% endif %}
 </div>
 {% if chat_has_messages %}
     {% for message in messages %}
@@ -40,6 +64,11 @@ div.message {
                 </div>
             {% endfor %}
         {{ message.username }}: {{ message.text }}
+            {% if user.username == message.username %}
+                <form class="form-delete" action="/message/api/message/delete/{{message.id}}/" method="POST">
+                    <button class="button-delete" type="submit">X</button>
+                </form>
+            {% endif %}
         </div>
     {% endfor %}
 {% else %}
