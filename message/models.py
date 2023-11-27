@@ -35,5 +35,3 @@ class Message(models.Model):
             f"USER: {self.user}; "
             f"MESSAGE: {self.text}"
         )
-
-

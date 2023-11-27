@@ -25,6 +25,8 @@ def create_message(request, chat_id):
     ## todo анонимный пользователь - исключение
     body = urllib.parse.parse_qs(request.body.decode())
     [message] = body.get('message')
+    if not message:
+        return JsonResponse({'message': 'Field "message" is required.'}, status=400)
     chat = chat_id
     try:
         Chat.objects.get(id=chat)
