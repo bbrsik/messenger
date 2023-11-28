@@ -4,9 +4,10 @@ from . import views, api_views
 urlpatterns = [
     path("chat/<chat_id>/", views.render_chat, name='render_chat'),
     path("chats/", views.render_list, name='render_list'),
+    path("login/", views.render_login, name='render_login'),
 
     path('api/', include([
-        path("login/", api_views.login_view, name='login'),
+        path("logout/", api_views.logout_view, name='logout_view'),
 
         path('message/', include([
             path("create/<chat_id>/", api_views.create_message, name='create_message'),

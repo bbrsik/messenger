@@ -1,5 +1,8 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
+
 from message.serializers import *
 
 
@@ -25,3 +28,19 @@ def render_list(request):
         'chats': chats,
     }
     return render(request, 'render_list.html', context=context)
+
+
+@csrf_exempt
+def render_login(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if not user:
+        return render(request, 'render_login.html')
+
+    login(request, user)
+    return redirect('/message/login/')
+
+
+def render_signup(request):
+    pass

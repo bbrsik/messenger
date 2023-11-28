@@ -1,0 +1,210 @@
+[33mcommit a9569439024fabab6125065efbd7dc0260f1d7fe[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: unknown <sainte66@gmail.com>
+Date:   Tue Nov 28 17:02:30 2023 +0300
+
+    login/logout beta
+
+[33mcommit 960cc20d3807a84a3b9fff4443fe71633bc383b6[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 6ba9a7e 487eabb
+Author: Roman Verkhoturov <44624950+inspectorr@users.noreply.github.com>
+Date:   Mon Nov 27 19:43:22 2023 +0300
+
+    Merge pull request #4 from bbrsik/feature/tests
+    
+    tests initial
+
+[33mcommit 487eabb28c77692054851bc5a73d199727b2001a[m[33m ([m[1;31morigin/feature/tests[m[33m, [m[1;32mfeature/tests[m[33m)[m
+Author: unknown <sainte66@gmail.com>
+Date:   Mon Nov 27 19:39:31 2023 +0300
+
+    tests
+
+[33mcommit 438e259cfd9bfcab0845639fee951d076fcc8777[m
+Author: Roman Verkhoturov <r.verkhoturov@corp.mail.ru>
+Date:   Mon Nov 13 20:43:38 2023 +0300
+
+    tests initial
+
+[33mcommit 6ba9a7e65a8fdce4f2a6986ae6343227853d5e76[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Nov 13 19:53:27 2023 +0300
+
+    hotfix
+
+[33mcommit 051b2f98ba8203c78bfd52b68e06e9a7121875e0[m
+Merge: 8a4fcb9 996705d
+Author: Roman Verkhoturov <44624950+inspectorr@users.noreply.github.com>
+Date:   Mon Nov 13 19:45:48 2023 +0300
+
+    Merge pull request #2 from bbrsik/feature/chat-interface
+    
+    Feature/chat interface
+
+[33mcommit 996705dd376149225a56ad8c925e1518a53fb62b[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Nov 13 19:45:00 2023 +0300
+
+    removed useless views and tests
+
+[33mcommit aa639d3833d21e42651e7cd9fd1c3cf0bf79a485[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Nov 13 19:36:42 2023 +0300
+
+    finished message-delete
+
+[33mcommit 8cb138ca81067074fe810f29125cd598d0bca4b6[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Nov 13 17:58:44 2023 +0300
+
+    begin message-delete
+
+[33mcommit 166ea31e06606bd24e9aeade12937ec567445b25[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Tue Oct 31 15:34:33 2023 +0300
+
+    replies chain, appearance done
+
+[33mcommit b9539be14b509e243141f5c94faa1ead5a7b9dbd[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Oct 23 20:01:01 2023 +0300
+
+    message creation implemented
+
+[33mcommit 91df5a83c9d0b5d39152089414bab6b96c2e3e68[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Mon Oct 23 19:09:50 2023 +0300
+
+    serializers
+
+[33mcommit 53755586045d2587019b4de874c0cd629dafae1f[m
+Merge: 4378db7 8a4fcb9
+Author: bbrsik <sainte66@gmail.com>
+Date:   Fri Oct 20 18:52:43 2023 +0300
+
+    Merge branch 'master' into feature/chat-interface
+
+[33mcommit 8a4fcb9bd6d9dcc9056420f512aab5dcb1a04b6f[m
+Merge: a5c7507 8b80ad6
+Author: Roman Verkhoturov <44624950+inspectorr@users.noreply.github.com>
+Date:   Fri Oct 20 18:38:59 2023 +0300
+
+    Merge pull request #3 from bbrsik/feature/replies
+    
+    Feature/replies
+
+[33mcommit 8b80ad6b8ebd712e7b8df3182771cd2b68749365[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Fri Oct 20 18:38:36 2023 +0300
+
+    killed a bug
+
+[33mcommit 8569fbdb7eb6800b230fcc4cc70ce64e050166f3[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Fri Oct 20 18:36:06 2023 +0300
+
+    implemented replies chain
+
+[33mcommit 68ca3a492d36ef5786f5e18d4c56e174e5ec4e8f[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Wed Oct 18 23:36:08 2023 +0300
+
+    list beta
+
+[33mcommit b2f6fede68999b41215e45d87f469de2b16b1672[m
+Author: Roman Verkhoturov <r.verkhoturov@corp.mail.ru>
+Date:   Thu Oct 12 22:22:26 2023 +0300
+
+    the task for bbarsik
+
+[33mcommit 56d23f0ba196a8a37458e811e45e2ff0cb883bdf[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Thu Oct 12 22:13:40 2023 +0300
+
+    bla
+
+[33mcommit 4378db7e65cf96500ef2c45f0e3682dbc3608d5f[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Sat Oct 7 19:40:36 2023 +0300
+
+    implemented chat list and chat contents
+
+[33mcommit c2d6183a5f1fdd6afa890c3f9bb7688599707594[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Tue Oct 3 19:55:57 2023 +0300
+
+    render_chat
+
+[33mcommit 20cafc3cf78f02d620ceff1e9d2b5031ed202a7f[m
+Author: Roman Verkhoturov <r.verkhoturov@corp.mail.ru>
+Date:   Fri Sep 29 19:37:44 2023 +0300
+
+    templates start
+
+[33mcommit a5c7507aa5b5c9398ecdc10b5f38784655189f4a[m
+Merge: 4b84558 7516d86
+Author: Roman Verkhoturov <44624950+inspectorr@users.noreply.github.com>
+Date:   Fri Sep 29 19:16:39 2023 +0300
+
+    Merge pull request #1 from bbrsik/feature/message
+    
+    respect!
+
+[33mcommit 7516d862849a3b16ab43c0cc9ff20a057b5d9d13[m[33m ([m[1;31morigin/feature/message[m[33m)[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Fri Sep 29 19:14:28 2023 +0300
+
+    applied changes
+
+[33mcommit 88cb8791f2b1570faa86e69560bbf2550cc5153c[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Fri Sep 29 18:56:01 2023 +0300
+
+    show chat and list chats done
+
+[33mcommit 65666960506f39ee48cabaa0f9c5914e1ce69002[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Tue Sep 26 21:21:00 2023 +0300
+
+    implemented chat
+
+[33mcommit 1c5b4b632491ed6b9cde178df41ec847dabaa67b[m
+Author: Roman Verkhoturov <r.verkhoturov@corp.mail.ru>
+Date:   Thu Sep 21 22:15:15 2023 +0300
+
+    save auth
+
+[33mcommit 90888d28e809dc35010093f1664dcea0ff7e749d[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Thu Sep 21 21:52:14 2023 +0300
+
+    beginning auth
+
+[33mcommit 71ab19c57c2ea8adc8771aeeb88657f0c34c65a7[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Thu Sep 21 20:33:26 2023 +0300
+
+    save point before messing with the database
+
+[33mcommit 7009eec1d33b100893e58310d3979d33415e5d64[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Wed Sep 20 22:47:25 2023 +0300
+
+    save point before mess
+
+[33mcommit d531e331c2a340aa03b0ede6c346477ff60aa8f9[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Wed Sep 20 20:07:40 2023 +0300
+
+    experiments with URLs, views, and finally message class + a migration, but I didn't actually figured out what that means
+
+[33mcommit 4b84558dab392bb28101b2817bc9ef65a8fa3538[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Thu Sep 14 21:14:14 2023 +0300
+
+    third commit
+
+[33mcommit ea5cf9415879c2002d9086edcf28a04f5eda4062[m
+Author: bbrsik <sainte66@gmail.com>
+Date:   Thu Sep 14 20:44:30 2023 +0300
+
+    second commit

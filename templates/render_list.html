@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>Chat list</title>
 <style>
     html * {
             font-size: 20px;
@@ -10,6 +11,18 @@
 </style>
 </head>
 <body>
+<div style="margin-left: 10px; margin-top: 10px;">
+    {% if user.is_authenticated %}
+        <div style="color: green;">
+            You are logged in as: {{ user.username }}
+            <form style="display: inline-block" action="/message/api/logout/">
+            <div><button type="submit">logout</button></div>
+            </form>
+        </div>
+    {% else %}
+        <div style="color: red;">You are not logged in</div>
+    {% endif %}
+</div>
 <table style="margin-top:10px; margin-left:10px; text-align:left;">
   <tr>
       <th>Chat</th>

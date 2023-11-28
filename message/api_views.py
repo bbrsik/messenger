@@ -1,6 +1,6 @@
 import urllib
 import json
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -9,13 +9,9 @@ from message.serializers import *
 
 
 @csrf_exempt
-def login_view(request):
-    body = json.loads(request.body)
-    user = authenticate(request, username=body.get('username'), password=body.get('password'))
-    if not user:
-        return JsonResponse({}, status=403)
-    login(request, user=user)
-    return JsonResponse({})
+def logout_view(request):
+    logout(request)
+    return redirect('/message/login/')
 
 
 @csrf_exempt
