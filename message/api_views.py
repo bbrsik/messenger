@@ -1,6 +1,6 @@
 import urllib
-import json
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -18,7 +18,7 @@ def logout_view(request):
 def create_message(request, chat_id):
     if request.method != "POST":
         return JsonResponse({}, status=400)
-    ## todo анонимный пользователь - исключение
+    # todo анонимный пользователь - исключение
     body = urllib.parse.parse_qs(request.body.decode())
     [message] = body.get('message')
     if not message:
@@ -55,3 +55,19 @@ def create_chat(request):
         chat = Chat(name=name)
         chat.save()
     return redirect(reverse("render_list"))
+
+
+@csrf_exempt
+def create_user(request):
+    username = request.POST.get('username')
+    try:
+        if username == User.objects.get(username=username).username:
+            return JsonResponse({'error': 'user already exists'}, status=403)
+    except User.DoesNotExist:
+        pass
+    password = request.POST.get('password')
+    user = User.objects.create_user(
+        username=username, email=None, password=password
+    )
+    user.save()
+    return JsonResponse({'status': 'success'}, status=200)

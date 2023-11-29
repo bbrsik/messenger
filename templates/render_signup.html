@@ -7,7 +7,7 @@
     html * {
             font-size: 20px;
             line-height: 1.5;
-            color: #2020131;
+            color: #202013;
             font-family: sans-serif;
             }
 </style>
@@ -15,7 +15,7 @@
 <body>
 <div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
 {% if user.is_authenticated %}
-    <div style="color: green;">You are logged in as: {{ user.username }}</div>
+    <div style="color: green;">This account does not need registration. You are logged in as: {{ user.username }}.</div>
     <form action="/message/chats/">
     <div><button type="submit">chats</button></div>
     </form>
@@ -23,10 +23,9 @@
     <div><button type="submit">logout</button></div>
     </form>
 {% else %}
-    <div style="color: red;">You are not logged in</div>
+    <div style="color: cyan;">Welcome to the signup page</div>
     <div style="margin-top:30px; margin-left:10px;">
-    <form action="/message/login/" method="POST">
-        {% csrf_token %}
+    <form action="/message/api/create_user/" method="POST">
         <div>
             <label for="username">username:</label>
             <input type="text" name="username" id="username" autocomplete="off" required>
@@ -35,16 +34,12 @@
             <label for="password">password:</label>
             <input type="password" name="password" id="password" autocomplete="off" required>
         </div>
-        <button type="submit">login</button>
+        <button type="submit">sign up</button>
         {% if error %}
-            <div style="color: red;">Wrong username or password</div>
+            <div style="color: red;">This username is already taken</div>
         {% endif %}
     </form>
-    <div>
-    <a href="/message/signup/">Sign up</a>
     </div>
-    </div>
-
 {% endif %}
 </div>
 </body>
