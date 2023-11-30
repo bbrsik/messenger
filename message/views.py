@@ -39,7 +39,7 @@ def render_login(request):
         return render(request, 'render_login.html')
 
     login(request, user)
-    return redirect('/message/login/')
+    return redirect('/message/chats/')
 
 
 @csrf_exempt
