@@ -2,45 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login page</title>
+    <title>Signup</title>
     <style>
     html * {
             font-size: 20px;
             line-height: 1.5;
-            color: #202013;
+            color: #2020131;
             font-family: sans-serif;
+            margin-bottom: 3px;
             }
 </style>
 </head>
 <body>
-<div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
-{% if user.is_authenticated %}
-    <div style="color: green;">This account does not need registration. You are logged in as: {{ user.username }}.</div>
-    <form action="/message/chats/">
-    <div><button type="submit">chats</button></div>
-    </form>
-    <form action="/message/api/logout/">
-    <div><button type="submit">logout</button></div>
-    </form>
-{% else %}
-    <div style="color: #0004ff;">Welcome to the signup page</div>
-    <div style="margin-top:30px; margin-left:10px;">
-    <form action="/message/api/create_user/" method="POST">
-        <div>
-            <label for="username">username:</label>
-            <input type="text" name="username" id="username" autocomplete="off" required>
-        </div>
-        <div>
-            <label for="password">password:</label>
-            <input type="password" name="password" id="password" autocomplete="off" required>
-        </div>
-        <button type="submit">sign up</button>
-        {% if error %}
-            <div style="color: red;">This username is already taken</div>
-        {% endif %}
-    </form>
+<div style="margin-bottom: 30px;">Welcome to the signup page!</div>
+<div>
+<form action="/user/api/create_user/" method="POST">
+    <div>
+        <label for="username">username:</label>
+        <input type="text" name="username" id="username" autocomplete="off" required>
     </div>
-{% endif %}
+    <div>
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password" autocomplete="off" required>
+    </div>
+    {% if messages %}
+    <div style="color: red;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <button style="margin-top: 20px;" type="submit">Sign up</button>
+
+</form>
+</div>
+<div style="margin-top: 20px;">
+    Already have an account?
+    <div><a href="/user/login/">Login</a></div>
 </div>
 </body>
 </html>

@@ -20,4 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('message/', include('message.urls')),
+    path('user/', include('user.urls')),
 ]
+# todo сделать view для перенаправления с корня сайта
+#  в необходимое место в зависимости от контекста

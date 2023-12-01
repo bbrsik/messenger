@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Chat list</title>
+<title>Chats</title>
 <style>
     html * {
             font-size: 20px;
@@ -15,8 +15,8 @@
     {% if user.is_authenticated %}
         <div style="color: green;">
             You are logged in as: {{ user.username }}
-            <form style="display: inline-block" action="/message/api/logout/">
-            <div><button type="submit">logout</button></div>
+            <form style="display: inline-block" action="/user/api/logout/">
+            <div><button type="submit">Logout</button></div>
             </form>
         </div>
     {% else %}

@@ -1,4 +1,5 @@
 import urllib
+from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User, AnonymousUser
 from django.http import JsonResponse
@@ -9,17 +10,9 @@ from message.serializers import *
 
 
 @csrf_exempt
-def logout_view(request):
-    logout(request)
-    return redirect('/message/login/')
-
-
-@csrf_exempt
 def create_message(request, chat_id):
     if request.method != "POST":
         return JsonResponse({}, status=400)
-    if AnonymousUser:
-        return JsonResponse({'error': 'not logged in'}, status=403)
     body = urllib.parse.parse_qs(request.body.decode())
     [message] = body.get('message')
     if not message:
@@ -56,17 +49,3 @@ def create_chat(request):
         chat = Chat(name=name)
         chat.save()
     return redirect(reverse("render_list"))
-
-
-@csrf_exempt
-def create_user(request):
-    username = request.POST.get('username')
-    if User.objects.filter(username=username).exists():
-        return JsonResponse({'error': 'user already exists'}, status=403)
-    password = request.POST.get('password')
-    User.objects.create_user(
-        username=username, email=None, password=password
-    )
-    user = authenticate(request, username=username, password=password)
-    login(request, user)
-    return redirect('/message/chats/')

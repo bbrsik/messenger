@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
-from django.urls import reverse
+from django.test import TestCase
 from message.models import Chat, Message
 from message.serializers import serialize_chats, serialize_messages
-from message.api_views import create_chat
+from django.urls import reverse
 
 
 class SerializersTestCase(TestCase):
@@ -49,13 +48,6 @@ class SerializersTestCase(TestCase):
         self.assertEqual(serialized_message2['created_at'], self.message2.created_at.strftime("%D %H:%M:%S")),
 
 
-class ApiViewsTestCase(TestCase):
-    def setUp(self):
-        # create_chat test
-        pass
-    pass
-
-
 class RenderViewsTestCase(TestCase):
     def setUp(self):
         self.chat = Chat.objects.create(
@@ -64,16 +56,25 @@ class RenderViewsTestCase(TestCase):
         )
 
     def test_render_chat(self):
+        # todo починить тест (из-за редиректа в render_chat больше не работает)
         url = reverse('render_chat', kwargs={'chat_id': 1})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         url2 = reverse('render_chat', kwargs={'chat_id': 123})
         response = self.client.get(url2)
         self.assertEqual(response.status_code, 404)
-
         # smoke test
 
     def test_render_list(self):
+        # todo починить тест (из-за редиректа в render_list больше не работает)
         url = reverse('render_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+
+class ApiViewsTestCase(TestCase):
+    def setUp(self):
+        # create_chat test
+        pass
+    pass
+

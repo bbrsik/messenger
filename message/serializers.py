@@ -1,7 +1,5 @@
 from django.db.models import QuerySet
-
-from message.models import Chat
-from message.models import Message
+from message.models import Chat, Message
 
 
 def serialize_chats(qs: QuerySet):

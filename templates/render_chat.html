@@ -48,11 +48,7 @@ div.message {
 </head>
 <body>
 <div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
-    {% if user.is_authenticated %}
-        <div style="color: green;">You are logged in as: {{ user.username }}</div>
-    {% else %}
-        <div style="color: red;">You are not logged in</div>
-    {% endif %}
+    <div style="color: green;">You are logged in as: {{ user.username }}</div>
     <div>Selected chat: {{ name }}</div>
     <div>Chat ID: {{ chat_id }}</div>
 </div>
