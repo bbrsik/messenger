@@ -24,5 +24,3 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('', views.redirect_view, name='redirect_view'),
 ]
-# todo сделать view для перенаправления с корня сайта
-#  в необходимое место в зависимости от контекста
