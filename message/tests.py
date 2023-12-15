@@ -1,5 +1,7 @@
+from urllib import request
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from message.models import Chat, Message
 from message.serializers import serialize_chats, serialize_messages
 from django.urls import reverse
@@ -50,6 +52,10 @@ class SerializersTestCase(TestCase):
 
 class RenderViewsTestCase(TestCase):
     def setUp(self):
+        self.factory = RequestFactory()
+        self.user = User.objects.create_user(username='testuser', password='1234')
+        self.client.login(username='testuser', password='1234')
+
         self.chat = Chat.objects.create(
             id=1,
             name='Test chat'
@@ -77,4 +83,3 @@ class ApiViewsTestCase(TestCase):
         # create_chat test
         pass
     pass
-
