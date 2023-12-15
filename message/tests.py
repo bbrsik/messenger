@@ -62,7 +62,6 @@ class RenderViewsTestCase(TestCase):
         )
 
     def test_render_chat(self):
-        # todo починить тест (из-за редиректа в render_chat больше не работает)
         url = reverse('render_chat', kwargs={'chat_id': 1})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -72,7 +71,6 @@ class RenderViewsTestCase(TestCase):
         # smoke test
 
     def test_render_list(self):
-        # todo починить тест (из-за редиректа в render_list больше не работает)
         url = reverse('render_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
