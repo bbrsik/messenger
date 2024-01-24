@@ -1,5 +1,4 @@
 import urllib
-import re
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User, AnonymousUser
@@ -33,16 +32,33 @@ def create_message(request, chat_id):
     return redirect(reverse("render_chat", kwargs={'chat_id': chat_id}))
 
 
-def censor_badwords(message):
+def replace_symbols(source, target, replacer):
+    result = ""
+    previous_index = 0
+    source_lower = source.lower()
+    target_lower = target.lower()
 
+    index = source_lower.find(target_lower)
+
+    while index != -1:
+        result += source[previous_index:index]
+        result += replacer * len(target)
+
+        previous_index = index + len(target)
+        index = source_lower.find(target_lower, previous_index)
+
+    result += source[previous_index:len(source)]
+    return result
+
+
+def censor_badwords(message):
     words = message.split()
     badwords = Badword.objects.all()
 
     for index, word in enumerate(words):
         for badword in badwords:
             if badword.word.lower() in word.lower():
-                asterisk_string = "*" * len(badword.word)
-                words[index] = re.sub(re.escape(badword.word), asterisk_string, word, flags=re.I)
+                words[index] = replace_symbols(word, badword.word, "*")
 
     message = " ".join(words)
     return message
