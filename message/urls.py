@@ -6,8 +6,6 @@ urlpatterns = [
     path("chats/", views.render_list, name='render_list'),
 
     path('api/', include([
-        path("login/", api_views.login_view, name='login'),
-
         path('message/', include([
             path("create/<chat_id>/", api_views.create_message, name='create_message'),
             path("delete/<message_id>/", api_views.delete_message, name='delete_message'),

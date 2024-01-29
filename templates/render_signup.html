@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <style>
+    html * {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #202013;
+            font-family: sans-serif;
+            margin-bottom: 3px;
+            }
+</style>
+</head>
+<body>
+<div style="margin-bottom: 30px;">Welcome to the signup page!</div>
+<div>
+<form action="/user/api/create_user/" method="POST">
+    <div>
+        <label for="username">username:</label>
+        <input type="text" name="username" id="username" autocomplete="off" required>
+    </div>
+    <div>
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password" autocomplete="off" required>
+    </div>
+    {% if messages %}
+    <div style="color: red;">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <button style="margin-top: 20px;" type="submit">Sign up</button>
+
+</form>
+</div>
+<div style="margin-top: 20px;">
+    Already have an account?
+    <div><a href="/user/login/">Login</a></div>
+</div>
+</body>
+</html>

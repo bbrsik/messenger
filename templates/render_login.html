@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+    html * {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #202013;
+            font-family: sans-serif;
+            margin-bottom: 3px;
+            }
+</style>
+</head>
+<body>
+<div style="margin-bottom: 30px;">Welcome to the login page!</div>
+<div>
+    <form action="/user/api/login/" method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="username">username:</label>
+            <input type="text" name="username" id="username" autocomplete="off" required>
+        </div>
+        <div>
+            <label for="password">password:</label>
+            <input type="password" name="password" id="password" autocomplete="off" required>
+        </div>
+        {% if messages %}
+        <div style="color: red;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+        <button style="margin-top: 20px;" type="submit">Let me in!</button>
+    </form>
+    <div style="margin-top: 20px;">
+        <a href="/user/signup/">Sign up</a>
+    </div>
+</div>
+</body>
+</html>

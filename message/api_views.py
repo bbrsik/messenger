@@ -1,6 +1,7 @@
 import urllib
-import json
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.models import User, AnonymousUser
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -9,20 +10,9 @@ from message.serializers import *
 
 
 @csrf_exempt
-def login_view(request):
-    body = json.loads(request.body)
-    user = authenticate(request, username=body.get('username'), password=body.get('password'))
-    if not user:
-        return JsonResponse({}, status=403)
-    login(request, user=user)
-    return JsonResponse({})
-
-
-@csrf_exempt
 def create_message(request, chat_id):
     if request.method != "POST":
         return JsonResponse({}, status=400)
-    ## todo анонимный пользователь - исключение
     body = urllib.parse.parse_qs(request.body.decode())
     [message] = body.get('message')
     if not message:

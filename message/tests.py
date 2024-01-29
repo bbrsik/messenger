@@ -1,9 +1,10 @@
+from urllib import request
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
-from django.urls import reverse
+from django.test import TestCase
 from message.models import Chat, Message
 from message.serializers import serialize_chats, serialize_messages
-from message.api_views import create_chat
+from django.urls import reverse
 
 
 class SerializersTestCase(TestCase):
@@ -49,15 +50,11 @@ class SerializersTestCase(TestCase):
         self.assertEqual(serialized_message2['created_at'], self.message2.created_at.strftime("%D %H:%M:%S")),
 
 
-class ApiViewsTestCase(TestCase):
-    def setUp(self):
-        # create_chat test
-        pass
-    pass
-
-
 class RenderViewsTestCase(TestCase):
     def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='1234')
+        self.client.login(username='testuser', password='1234')
+
         self.chat = Chat.objects.create(
             id=1,
             name='Test chat'
@@ -70,10 +67,11 @@ class RenderViewsTestCase(TestCase):
         url2 = reverse('render_chat', kwargs={'chat_id': 123})
         response = self.client.get(url2)
         self.assertEqual(response.status_code, 404)
-
         # smoke test
 
     def test_render_list(self):
         url = reverse('render_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+
+

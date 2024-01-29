@@ -1,10 +1,11 @@
 <html>
 <head>
+<title>{{ name }}</title>
 <style>
 html * {
         font-size: 20px;
         line-height: 1.5;
-        color: #2020131;
+        color: #202013;
         font-family: sans-serif;
         }
 
@@ -47,13 +48,9 @@ div.message {
 </head>
 <body>
 <div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
+    <div style="color: green;">You are logged in as: {{ user.username }}</div>
     <div>Selected chat: {{ name }}</div>
     <div>Chat ID: {{ chat_id }}</div>
-    {% if user.is_authenticated %}
-        <div style="color: green;">You are logged in as: {{ user.username }}</div>
-    {% else %}
-        <div style="color: red;">You are not logged in</div>
-    {% endif %}
 </div>
 {% if chat_has_messages %}
     {% for message in messages %}
