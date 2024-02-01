@@ -2,8 +2,9 @@ from urllib import request
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.test import TestCase
-from message.models import Chat, Message
+from message.models import Chat, Message, Badword
 from message.serializers import serialize_chats, serialize_messages
+from message.api_views import replace_symbols
 from django.urls import reverse
 
 
@@ -75,3 +76,25 @@ class RenderViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class ReplaceSymbolsTestCase(TestCase):
+    def setUp(self):
+        self.source1 = "apple"
+        self.source2 = "Apple"
+        self.source3 = "apPlE"
+
+        self.target1 = "p"
+        self.target2 = "ple"
+        self.target3 = "ppl"
+
+        self.expected_result1 = "a**le"
+        self.expected_result2 = "Ap***"
+        self.expected_result3 = "a***E"
+
+    def test_replace_symbols(self):
+        self.result1 = replace_symbols(self.source1, self.target1, "*")
+        self.result2 = replace_symbols(self.source2, self.target2, "*")
+        self.result3 = replace_symbols(self.source3, self.target3, "*")
+
+        self.assertEqual(self.result1, self.expected_result1)
+        self.assertEqual(self.result2, self.expected_result2)
+        self.assertEqual(self.result3, self.expected_result3)
