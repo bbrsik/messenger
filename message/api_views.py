@@ -52,15 +52,12 @@ def replace_symbols(source, target, replacer):
 
 
 def censor_badwords(message):
-    words = message.split()
     badwords = Badword.objects.all()
 
-    for index, word in enumerate(words):
-        for badword in badwords:
-            if badword.word.lower() in word.lower():
-                words[index] = replace_symbols(word, badword.word, "*")
+    for badword in badwords:
+        if badword.word.lower() in message.lower():
+            message = replace_symbols(message, badword.word, "*")
 
-    message = " ".join(words)
     return message
 
 
