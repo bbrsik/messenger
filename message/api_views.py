@@ -55,8 +55,7 @@ def censor_badwords(message):
     badwords = Badword.objects.all()
 
     for badword in badwords:
-        if badword.word.lower() in message.lower():
-            message = replace_symbols(message, badword.word, "*")
+        message = replace_symbols(message, badword.word, "*")
 
     return message
 
