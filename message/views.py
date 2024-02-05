@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from message.serializers import serialize_chats, serialize_messages
 from message.models import Chat, Message
+from weather.utility import get_weather_data
 
 
 def render_chat(request, chat_id):
@@ -26,6 +27,12 @@ def render_list(request):
     if not request.user.is_authenticated:
         return redirect('/user/login/')
     chats = serialize_chats(Chat.objects.all())
-    return render(request, 'render_list.html', {'chats': chats})
+    weather_data = get_weather_data(request)
+    context = \
+        {
+        'chats': chats,
+        'weather_data': weather_data
+        }
+    return render(request, 'render_list.html', context=context)
 
 

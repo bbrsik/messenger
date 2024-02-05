@@ -23,6 +23,13 @@
         <div style="color: red;">You are not logged in</div>
     {% endif %}
 </div>
+
+<div style="margin-left: 10px; margin-top: 10px; margin-bottom: 30px;">
+    <div>Weather report for {{weather_data.location}}:</div>
+    <div>{{weather_data.description}}</div>
+    <div>Temperature: {{weather_data.temp}}°C</div>
+</div>
+
 <table style="margin-top:10px; margin-left:10px; text-align:left;">
   <tr>
       <th>Chat</th>
