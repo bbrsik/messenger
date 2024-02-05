@@ -35,3 +35,12 @@ class Message(models.Model):
             f"USER: {self.user}; "
             f"MESSAGE: {self.text}"
         )
+
+
+class Badword(models.Model):
+    word = models.TextField()
+
+    def __str__(self):
+        return (
+            f"WORD: {self.word} "
+        )
