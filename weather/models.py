@@ -9,8 +9,8 @@ class Weather(models.Model):
 
     def __str__(self):
         return (
-            f"LOCATION: {self.location}\n"
-            f"DESCRIPTION: {self.description}\n"
-            f"TEMPERATURE: {self.temperature}\n"
-            f"DATE: {self.created_at}\n"
+            f"LOCATION: {self.location}, "
+            f"DESCRIPTION: {self.description}, "
+            f"TEMPERATURE: {self.temperature}, "
+            f"DATE: {self.created_at}; "
         )
