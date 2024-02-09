@@ -27,9 +27,8 @@ def render_list(request):
     if not request.user.is_authenticated:
         return redirect('/user/login/')
     chats = serialize_chats(Chat.objects.all())
-    weather_data = get_weather_data(request)
-    context = \
-        {
+    weather_data = get_weather_data()
+    context = {
         'chats': chats,
         'weather_data': weather_data
         }
