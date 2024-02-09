@@ -12,5 +12,5 @@ class Weather(models.Model):
             f"LOCATION: {self.location}, "
             f"DESCRIPTION: {self.description}, "
             f"TEMPERATURE: {self.temperature}, "
-            f"DATE: {self.created_at}; "
+            f"DATE: ({self.created_at:%Y-%m-%d %H:%M}); "
         )
