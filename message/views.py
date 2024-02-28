@@ -29,11 +29,11 @@ def render_list(request):
         return redirect('/user/login/')
     chats = serialize_chats(Chat.objects.all())
     weather_update_check()
-    weather_data = Weather.objects.latest("created_at")
+    weather_data = Weather.objects.latest('created_at')
     context = {
         'chats': chats,
         'weather_data': weather_data
-        }
+    }
     return render(request, 'render_list.html', context=context)
 
 
