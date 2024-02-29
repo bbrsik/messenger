@@ -28,12 +28,13 @@ def render_list(request):
     if not request.user.is_authenticated:
         return redirect('/user/login/')
     chats = serialize_chats(Chat.objects.all())
-    weather_update_check()
-    weather_data = Weather.objects.latest('created_at')
+    weather_data = weather_update_check()
+    if weather_data:
+        weather_to_save = Weather(**weather_data)
+        weather_to_save.save()
+    weather = Weather.objects.latest("created_at")
     context = {
         'chats': chats,
-        'weather_data': weather_data
+        'weather': weather,
     }
     return render(request, 'render_list.html', context=context)
-
-

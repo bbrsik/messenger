@@ -11,10 +11,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()  # todo обрабатывать ошибку если нет файла .env
-
+if find_dotenv():  # todo обрабатывать ошибку если нет файла .env
+    load_dotenv()
+else:
+    print('No .env file found.')
+    print('Please check the .env.example file and create the .env file.')
+    print('/// SHUTTING DOWN ///')
+    exit()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
