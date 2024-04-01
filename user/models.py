@@ -1,3 +1,24 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.TextField(null=True, blank=True)
+    last_name = models.TextField(null=True, blank=True)
+    middle_name = models.TextField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    current_city = models.TextField(null=True, blank=True)
+    picture = models.ImageField(null=True, blank=True, upload_to='profiles/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return (
+            f"USERNAME: {self.user}, "
+            f"CREATED AT: {self.created_at}, "
+            f"CURRENT CITY: {self.current_city}, "
+            f"FIRST NAME: {self.first_name}, "
+            f"LAST NAME: {self.last_name}, "
+            f"MIDDLE NAME: {self.middle_name}, "
+            f"PROFILE PICTURE: {self.picture}"
+        )
