@@ -24,3 +24,10 @@ def render_signup(request):
         messages.error(request, 'User already exists')
         del request.session['signup_failed']
     return render(request, 'render_signup.html', {'signup_failed': signup_failed})
+
+
+def render_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/user/login/')
+    return render(request, 'render_profile.html')
+

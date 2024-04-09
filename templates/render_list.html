@@ -15,6 +15,9 @@
     {% if user.is_authenticated %}
         <div style="color: green;">
             You are logged in as: {{ user.username }}
+            <form style="display: inline-block" action="/user/profile/">
+            <div><button type="submit">Edit profile</button></div>
+            </form>
             <form style="display: inline-block" action="/user/api/logout/">
             <div><button type="submit">Logout</button></div>
             </form>

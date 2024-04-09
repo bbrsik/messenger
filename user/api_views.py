@@ -23,6 +23,15 @@ def logout_view(request):
 
 
 @csrf_exempt
+def edit_profile(request):
+    user = request.user
+    if not user.is_authenticated:
+        return 0  # something that refuses to continue the profile edit procedure
+
+    return 0
+
+
+@csrf_exempt
 def create_user(request):
     username = request.POST.get('username')
     if User.objects.filter(username=username).exists():
