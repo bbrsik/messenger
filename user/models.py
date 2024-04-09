@@ -7,7 +7,7 @@ class Profile(models.Model):
     first_name = models.TextField(null=True, blank=True)
     last_name = models.TextField(null=True, blank=True)
     middle_name = models.TextField(null=True, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    birthdate = models.DateField(null=True, blank=True)
     current_location = models.TextField(null=True, blank=True)
     picture = models.ImageField(null=True, blank=True, upload_to='profiles/')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -20,5 +20,6 @@ class Profile(models.Model):
             f"FIRST NAME: {self.first_name}, "
             f"LAST NAME: {self.last_name}, "
             f"MIDDLE NAME: {self.middle_name}, "
+            f"BIRTHDATE: {self.birthdate}, "
             f"PROFILE PICTURE: {self.picture}"
         )

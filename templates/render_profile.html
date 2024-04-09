@@ -18,37 +18,51 @@
 <div>
 <form action="/user/api/edit_profile/" method="POST">
     <div>
-        Username: {{ user.username }}
+        Username: <b>{{ user.username }}</b>
+    </div>
+    <div>
+        {% if picture %}
+            <img src="/media/profiles/{{ picture }}" alt="Your profile picture" width="150" height="150">
+        {% else %}
+            You have no profile picture.
+        {% endif %}
     </div>
     <div>
         <label for="password">Confirm your password:</label>
-        <input type="password" name="password" id="password" autocomplete="off" required>
+        <div><input type="password" name="password" id="password" autocomplete="off" required></div>
     </div>
     <div>
-        <label for="first_name">Change first name: {{ user.first_name }}</label>
-        <input type="text" name="first_name" id="first_name" autocomplete="off">
+        <label for="first_name">Change first name:</label>
+        <div><input type="text" value="{{ first_name }}" name="first_name" id="first_name" autocomplete="off"></div>
     </div>
     <div>
-        <label for="last_name">Change last name:</label>
-        <input type="text" name="last_name" id="last_name" autocomplete="off">
+        <label for="last_name">Change last name: </label>
+        <div><input type="text" value="{{ last_name }}" name="last_name" id="last_name" autocomplete="off"></div>
     </div>
     <div>
         <label for="middle_name">Change middle name:</label>
-        <input type="text" name="middle_name" id="middle_name" autocomplete="off">
+        <div><input type="text" value="{{ middle_name }}" name="middle_name" id="middle_name" autocomplete="off"></div>
     </div>
     <div>
-        <label for="birth_date">Set birth date:</label>
-        <input type="date" name="birth_date" id="birth_date" autocomplete="off">
+        <label for="current_location">Change current location:</label>
+        <div><input type="text" value="{{ current_location }}" name="current_location" id="current_location" autocomplete="off"></div>
     </div>
     <div>
-        <label for="current_location">Set current location:</label>
-        <input type="text" name="current_location" id="current_location" autocomplete="off">
+        <label for="birthdate">Change birthdate:</label>
+        <div><input type="date" value="{{ birthdate }}" name="birthdate" id="birthdate" autocomplete="off"></div>
     </div>
     <div>
-        <label for="profile_picture">Upload profile picture:</label>
-        <input type="file" name="profile_picture" id="profile_picture" autocomplete="off">
+        <label for="picture">Upload profile picture:</label>
+        <div><input type="file" value="{{ picture }}" name="picture" id="picture" autocomplete="off"></div>
     </div>
 
+    {% if messages %}
+        <div style="color: red;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <button style="margin-top: 20px;" type="submit">Save changes</button>
 
