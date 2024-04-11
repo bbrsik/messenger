@@ -46,7 +46,10 @@ def edit_profile(request):
     profile.middle_name = request.POST.get('middle_name')
     profile.current_location = request.POST.get('current_location')
     profile.birthdate = request.POST.get('birthdate')
-    profile.picture = request.FILES.get('picture')
+
+    picture = request.FILES.get('picture')
+    if picture:
+        profile.picture = picture
 
     profile.save()
     request.session['edit_succeeded'] = True

@@ -16,7 +16,7 @@
 <body>
 <div style="margin-bottom: 30px;">Welcome to the profile page!</div>
 <div>
-<form action="/user/api/edit_profile/" method="POST">
+<form action="/user/api/edit_profile/" method="POST" enctype="multipart/form-data">
     <div>
         Username: <b>{{ user.username }}</b>
     </div>
