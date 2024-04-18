@@ -60,8 +60,13 @@ div.message {
                     TO: {{ reply.username }}: {{ reply.text }}
                 </div>
             {% endfor %}
-        {{ message.username }}: {{ message.text }}
-            {% if user.username == message.username %}
+        <div>
+            {% if message.user.picture %}
+                <img src="/media/{{ message.user.picture }}" width="40" height="40" alt="{{ message.user }}s profile picture">
+            {% endif %}
+            {{ message.user.user }}: {{ message.text }}
+        </div>
+            {% if user.username == message.user.username %}
                 <form class="form-delete" action="/message/api/message/delete/{{message.id}}/" method="POST">
                     <button class="button-delete" type="submit">X</button>
                 </form>
