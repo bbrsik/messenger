@@ -48,7 +48,7 @@ div.message {
 </head>
 <body>
 <div style="margin-bottom: 30px; margin-left: 10px; margin-top: 10px;">
-    <div style="color: green;">You are logged in as: {{ user.username }}</div>
+    <div style="color: green;">You are logged in as: {{ user }}</div>
     <div>Selected chat: {{ name }}</div>
     <div>Chat ID: {{ chat_id }}</div>
 </div>
@@ -66,7 +66,7 @@ div.message {
             {% endif %}
             {{ message.user.user }}: {{ message.text }}
         </div>
-            {% if user.username == message.user.username %}
+            {% if user == message.user.user %}
                 <form class="form-delete" action="/message/api/message/delete/{{message.id}}/" method="POST">
                     <button class="button-delete" type="submit">X</button>
                 </form>
@@ -86,6 +86,5 @@ div.message {
     </form>
     <a href="/message/chats/">Back to All Chats</a>
 </div>
-
 </body>
 </html>

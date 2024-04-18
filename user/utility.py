@@ -8,3 +8,15 @@ def change_filename(file):
     new_filename = str(uuid.uuid4()) + '.' + temp_filename[-1]
     renamed_file = SimpleUploadedFile(new_filename, file.read(), content_type=file.content_type)
     return renamed_file
+
+
+def validate_user_password(request, user):
+    if not user.is_authenticated:
+        # something that refuses to continue the profile edit procedure
+        return False
+
+    if not user.check_password(request.POST.get('password')):
+        request.session['edit_failed'] = True
+        return False
+
+    return True

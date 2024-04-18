@@ -16,18 +16,23 @@
 <body>
 <div style="margin-bottom: 30px;">Welcome to the profile page!</div>
 <div>
-<form action="/user/api/edit_profile/" method="POST" enctype="multipart/form-data">
-    <div>
-        Username: <b>{{ user.username }}</b>
-    </div>
-
+    Username: <b>{{ user.username }}</b>
+</div>
     <div>
         {% if picture %}
             <img src="/media/{{ picture }}" alt="Your profile picture" width="150" height="150">
+            <div>
+                <form style="display: inline-block" action="/user/api/delete_picture/">
+                    <button type="submit">Delete profile picture</button>
+                </form>
+            </div>
         {% else %}
             You have no profile picture.
         {% endif %}
     </div>
+<div>
+<form action="/user/api/edit_profile/" method="POST" enctype="multipart/form-data">
+
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
@@ -65,9 +70,7 @@
         <label for="picture">Upload profile picture:</label>
         <div><input type="file" value="{{ picture }}" name="picture" id="picture" autocomplete="off" accept="image/*"></div>
     </div>
-
     <button style="margin-top: 20px;" type="submit">Save changes</button>
-
 </form>
 </div>
 <div style="margin-top: 20px;">

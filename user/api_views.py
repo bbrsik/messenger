@@ -5,7 +5,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from user.utility import change_filename
+from user.utility import change_filename, validate_user_password
 
 
 def login_view(request):
@@ -29,29 +29,32 @@ def logout_view(request):
 @csrf_exempt
 def edit_profile(request):
     user = request.user
-
-    if not user.is_authenticated:
-        # something that refuses to continue the profile edit procedure
-
+    if not validate_user_password(request, user):
         return redirect('/user/profile/')
-
-    if not user.check_password(request.POST.get('password')):
-        # send a message that the password is wrong
-
-        request.session['edit_failed'] = True
-        return redirect('/user/profile/')
-
-    profile = Profile.objects.get(user=request.user)
+    profile = Profile.objects.get(user=user)
     profile.first_name = request.POST.get('first_name')
     profile.last_name = request.POST.get('last_name')
     profile.middle_name = request.POST.get('middle_name')
     profile.current_location = request.POST.get('current_location')
-    profile.birthdate = request.POST.get('birthdate')
+    birthdate = request.POST.get('birthdate')
+    if birthdate:
+        profile.birthdate = birthdate
     picture = request.FILES.get('picture')
     if picture:
         renamed_picture = change_filename(picture)
         profile.picture = renamed_picture
+    profile.save()
+    request.session['edit_succeeded'] = True
+    return redirect('/user/profile/')
 
+
+@csrf_exempt
+def delete_picture(request):
+    user = request.user
+    if not validate_user_password(request, user):
+        return redirect('/user/profile/')
+    profile = Profile.objects.get(user=user)
+    profile.picture = None
     profile.save()
     request.session['edit_succeeded'] = True
     return redirect('/user/profile/')
