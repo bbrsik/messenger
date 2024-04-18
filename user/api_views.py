@@ -5,6 +5,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from user.utility import change_filename
 
 
 def login_view(request):
@@ -46,10 +47,10 @@ def edit_profile(request):
     profile.middle_name = request.POST.get('middle_name')
     profile.current_location = request.POST.get('current_location')
     profile.birthdate = request.POST.get('birthdate')
-
     picture = request.FILES.get('picture')
     if picture:
-        profile.picture = picture
+        renamed_picture = change_filename(picture)
+        profile.picture = renamed_picture
 
     profile.save()
     request.session['edit_succeeded'] = True
