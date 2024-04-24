@@ -12,7 +12,6 @@ def should_update_weather(location='Saint Petersburg') -> bool:
         last_update = Weather.objects.filter(location=location).latest('created_at')
     except ObjectDoesNotExist:
         return True
-
     current_time = timezone.now()
     difference = current_time - last_update.created_at
     max_difference = datetime.timedelta(hours=1)
@@ -24,16 +23,13 @@ def request_weather_data(location='Saint Petersburg'):
     key = os.getenv("WEATHER_API_KEY")
     WEATHER_URL = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{0}/today/?key={1}'
     url = WEATHER_URL.format(location, key)
-
     response = requests.get(url, timeout=2)
     data = response.json()
-
     weather_data = {
         'location': data.get('address'),
         'description': data.get('days')[0].get('description'),
         'temperature': convert_fahrenheit_to_celsius(data.get('currentConditions').get('temp'))
     }
-    print(weather_data)
     return weather_data
 
 

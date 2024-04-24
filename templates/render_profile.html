@@ -21,18 +21,12 @@
     <div>
         {% if picture %}
             <img src="/media/{{ picture }}" alt="Your profile picture" width="150" height="150">
-            <div>
-                <form style="display: inline-block" action="/user/api/delete_picture/">
-                    <button type="submit">Delete profile picture</button>
-                </form>
-            </div>
         {% else %}
             You have no profile picture.
         {% endif %}
     </div>
 <div>
 <form action="/user/api/edit_profile/" method="POST" enctype="multipart/form-data">
-
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
@@ -66,11 +60,20 @@
         <label for="birthdate">Change birthdate:</label>
         <div><input type="date" value="{{ birthdate }}" name="birthdate" id="birthdate" autocomplete="off"></div>
     </div>
-    <div>
-        <label for="picture">Upload profile picture:</label>
-        <div><input type="file" value="{{ picture }}" name="picture" id="picture" autocomplete="off" accept="image/*"></div>
+    <div style="margin-top: 10px;">
+        {% if picture %}
+            <div>
+                <input type="checkbox" id="delete_picture" name="delete_picture">
+                <label for="delete_picture">Delete profile picture</label>
+            </div>
+        {% else %}
+            <div>
+            <label for="picture">Upload profile picture:</label>
+            <div><input type="file" value="{{ picture }}" name="picture" id="picture" autocomplete="off" accept="image/*"></div>
+        </div>
+        {% endif %}
     </div>
-    <button style="margin-top: 20px;" type="submit">Save changes</button>
+    <button type="submit">Save changes</button>
 </form>
 </div>
 <div style="margin-top: 20px;">

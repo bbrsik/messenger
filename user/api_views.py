@@ -1,4 +1,5 @@
 import urllib
+import os
 import django.contrib.auth.hashers
 from user.models import Profile
 from django.contrib.auth import logout, login, authenticate
@@ -40,21 +41,13 @@ def edit_profile(request):
     if birthdate:
         profile.birthdate = birthdate
     picture = request.FILES.get('picture')
-    if picture:
+    if 'delete_picture' in request.POST:
+        picture_to_delete = profile.picture
+        profile.picture = None
+        os.remove(str(profile.picture))
+    elif picture:
         renamed_picture = change_filename(picture)
         profile.picture = renamed_picture
-    profile.save()
-    request.session['edit_succeeded'] = True
-    return redirect('/user/profile/')
-
-
-@csrf_exempt
-def delete_picture(request):
-    user = request.user
-    if not validate_user_password(request, user):
-        return redirect('/user/profile/')
-    profile = Profile.objects.get(user=user)
-    profile.picture = None
     profile.save()
     request.session['edit_succeeded'] = True
     return redirect('/user/profile/')
