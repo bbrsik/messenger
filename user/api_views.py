@@ -44,7 +44,7 @@ def edit_profile(request):
     if 'delete_picture' in request.POST:
         picture_to_delete = profile.picture
         profile.picture = None
-        os.remove(str(profile.picture))
+        # todo delete picture file from storage
     elif picture:
         renamed_picture = change_filename(picture)
         profile.picture = renamed_picture
