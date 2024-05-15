@@ -1,4 +1,5 @@
 import uuid
+import os
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 
@@ -8,6 +9,12 @@ def change_filename(file):
     new_filename = str(uuid.uuid4()) + '.' + temp_filename[-1]
     renamed_file = SimpleUploadedFile(new_filename, file.read(), content_type=file.content_type)
     return renamed_file
+
+
+def delete_file(file_name):
+    path = "./media/" + str(file_name)
+    os.remove(path)
+    return 0
 
 
 def validate_user_password(request, user):

@@ -1,12 +1,11 @@
 import urllib
-import os
 import django.contrib.auth.hashers
 from user.models import Profile
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from user.utility import change_filename, validate_user_password
+from user.utility import *
 
 
 def login_view(request):
@@ -44,6 +43,7 @@ def edit_profile(request):
     if 'delete_picture' in request.POST:
         picture_to_delete = profile.picture
         profile.picture = None
+        delete_file(picture_to_delete)
         # todo delete picture file from storage
     elif picture:
         renamed_picture = change_filename(picture)
