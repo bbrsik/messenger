@@ -26,6 +26,10 @@ def logout_view(request):
     return redirect('/user/login/')
 
 
+def display_profile(request):
+    pass
+
+
 @csrf_exempt
 def edit_profile(request):
     user = request.user
@@ -44,7 +48,6 @@ def edit_profile(request):
         picture_to_delete = profile.picture
         profile.picture = None
         delete_file(picture_to_delete)
-        # todo delete picture file from storage
     elif picture:
         renamed_picture = change_filename(picture)
         profile.picture = renamed_picture

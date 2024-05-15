@@ -27,7 +27,11 @@ def render_signup(request):
     return render(request, 'render_signup.html', {'signup_failed': signup_failed})
 
 
-def render_profile(request):
+def render_display_profile(request):
+    pass
+
+
+def render_edit_profile(request):
     if not request.user.is_authenticated:
         return redirect('/user/login/')
     profile = Profile.objects.get(user=request.user)
