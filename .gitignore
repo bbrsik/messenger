@@ -4,3 +4,5 @@ cola/local_settings.py
 Pipfile
 Pipfile.lock
 /.env
+/media/
+venv/
